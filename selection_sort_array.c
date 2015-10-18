@@ -1,3 +1,8 @@
+/* Program for Selection sort 
+   Written by: ROHIT DESHPANDE
+   date: 10/18/2015
+*/
+
 #include <stdio.h>
 
 #define SIZE(arr)	(sizeof(arr)/sizeof(arr[1]))		            /* Macro for returning size of array */
@@ -26,4 +31,6 @@ int main(){
 	for (i_index = 0;i_index<size_of;i_index++){
 		printf("array[%d]:%d | ", i_index,array[i_index]);
 	}
+	
+	return 0;
 }
