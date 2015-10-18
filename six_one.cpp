@@ -1,27 +1,34 @@
- // Program to find the aggregate score of a student
+/*Program to find the final grade from different tests
+ * Final exam out of 100 points -> counts 50%
+ * Mid term exam out of 100 points -> counts 25%
+ * quiz1 + quiz2 both out of 10 points -> counts 25% combined
+ * */
 #include <iostream>
 using namespace std;
-
-struct ScoreCard{				// define the structure for a student
-	int me, fe, pt, q1, q2; 	// variable of points obtained
-	char grade;					// grade
+struct record{									/* Student record structure */
+	unsigned short int quiz1;
+	unsigned short int quiz2;
+	unsigned short int mid_term;
+	unsigned short int final;
+	float grade;
+	float calculate(){
+		grade = ((.5*final)+(0.25*mid_term)+(quiz1+quiz2)*0.25);
+		return grade;							/* function to calculate grade */
+	}
 };
-
-int main()
-{
-	float tscore;
-	ScoreCard score;			// structure variable
-	cout << "Pregram for score record of a student \n";
-	cout << "Enter the midterm exam points out of 100 : \n";					// input the values of marks
-	cin >> score.me;
-	cout << "Enter the Final exam points out of 100 : \n";
-	cin >> score.fe;
-	cout << "Enter the Quiz 1 points out of 10 : \n";
-	cin >> score.q1;
-	cout << "Enter the Quiz 2 points out of 10: \n";
-	cin >> score.q2;
-
-	tscore = (score.me*0.25) + (score.fe*0.50) + ((score.q1+score.q2)*0.25);	// calculate the overall aggregate score
-	cout << "The final score is as follows :\n" << tscore;						// print it on the console
+int main(){
+	float g;
+	record student;
+	cout << " Program to find the final grade " << endl;
+	cout << " Enter the points of quiz 1: " << endl;
+	cin >> student.quiz1;
+	cout << " Enter the points of quiz 2: " << endl;
+	cin >> student.quiz2;
+	cout << " Enter the points of mid term test: " << endl;
+	cin >> student.mid_term;
+	cout << " Enter the points of final test: " << endl;
+	cin >> student.final;
+	g = student.calculate();
+	cout << "The final grade of the student is: " << g << endl;
 	return 0;
 }
