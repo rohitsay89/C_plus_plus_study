@@ -1,3 +1,4 @@
+/* Complement of a character using Macro */
 #include <stdio.h>
 
 #define cmp(h)	~h                                         /* Macro for complement of a character */
