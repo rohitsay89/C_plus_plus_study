@@ -11,6 +11,8 @@ struct Node{
 };
 struct Node* head;
 
+void Print();
+
 void Insertb(int data){		/* Function to insert value in begining */
 	struct Node* temp;		/* declare a new pointer to structure variable(Node) */
 	temp = (struct Node*)malloc(sizeof(struct Node));	/* Allocate memory to it */
@@ -31,8 +33,28 @@ void Inserte(int data){		/* function to insert value at end of list  */
 	temp1->data = data;		/* insert data */
 	temp1->next = NULL;		/* point the new node to NULL i.e. end of list */
 }
-void Insertn(int ){
-	
+void Insertn(int p, int data){
+	printf("inside print insert function");
+	struct Node* temp1;
+	struct Node* temp2;
+	temp2 = (struct Node*)malloc(sizeof(struct Node));
+	temp2->data = data;
+	temp2->next = NULL;
+	int i=0;
+	printf("before if-else statement");
+	if(p==1){
+		Insertb(data);
+	}
+	else{
+		temp1=head;
+		for(i=1;i<p-1;i++){
+			temp1=temp1->next;
+		}
+		printf("after for loop");
+		temp2->next = temp1->next;
+		temp1->next=temp2;
+	}
+	printf("after else statement");
 }
 void Print(){				/* function to print a list */
 	struct Node* temp = head;
