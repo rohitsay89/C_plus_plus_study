@@ -5,13 +5,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node{
-	int data;
-	struct Node* next;
+struct Node{				/* Declare a structure */
+	int data;				/* declare its elements */
+	struct Node* next;		
 };
-struct Node* head;
+struct Node* head;			/* Declare a head pointer */
 
-void Print();
+/* Function prototype */
+void Print();				/* Function to print entire list */
+void Insertb();				/* Function to append data at begining of list */
+void Insertn();				/* Function to append data at nth position in list */
+void Inserte();				/* Function to append data at end of list */
 
 void Insertb(int data){		/* Function to insert value in begining */
 	struct Node* temp;		/* declare a new pointer to structure variable(Node) */
@@ -24,6 +28,15 @@ void Insertb(int data){		/* Function to insert value in begining */
 void Inserte(int data){		/* function to insert value at end of list  */
 	struct Node* temp;		/* declare a new pointer to structure variable(Node) */
 	temp = head;			/* save the address of head in new node 'temp' */
+	
+	if(temp==NULL){
+		temp = (struct Node*)malloc(sizeof(struct Node));	/* Allocate memory to it */
+		temp->data=data;	/* insert data in new node */
+		temp->next=NULL;	/* Point it to null as it is the end node */
+		head = temp;		/* store its addess to head as it is the first node in the list */
+		return;				/* Don't execute further just return to the flow */
+	}
+	
 	while(temp->next!=NULL){/* traverse the list till end */
 		temp=temp->next;	/* store the last node in temp */
 	}
@@ -34,27 +47,24 @@ void Inserte(int data){		/* function to insert value at end of list  */
 	temp1->next = NULL;		/* point the new node to NULL i.e. end of list */
 }
 void Insertn(int p, int data){
-	printf("inside print insert function");
-	struct Node* temp1;
-	struct Node* temp2;
-	temp2 = (struct Node*)malloc(sizeof(struct Node));
-	temp2->data = data;
-	temp2->next = NULL;
+	struct Node* temp1;		/* declare a new pointer to structure variable(Node) */
+	struct Node* temp2;		/* declare a new pointer to structure variable(Node) */
+	temp2 = (struct Node*)malloc(sizeof(struct Node)); /* Allocate memory to node */
+	temp2->data = data;		/* insert data in node */
+	temp2->next = NULL;		/* point it to null */
 	int i=0;
-	printf("before if-else statement");
-	if(p==1){
-		Insertb(data);
+	
+	if(p==1){				/* for case if position is 1st */
+		Insertb(data);		/* Isert in begining */
 	}
-	else{
-		temp1=head;
+	else{					/* Otherwise insert at nth position */
+		temp1=head;			/* traverse through the list */
 		for(i=1;i<p-1;i++){
 			temp1=temp1->next;
 		}
-		printf("after for loop");
-		temp2->next = temp1->next;
-		temp1->next=temp2;
+		temp2->next = temp1->next;	/* store link of old node to link of new node */
+		temp1->next=temp2;			/* store new node address to link of previous node */
 	}
-	printf("after else statement");
 }
 void Print(){				/* function to print a list */
 	struct Node* temp = head;
@@ -71,24 +81,19 @@ int main(){
 	int i=0,x=0,n=0,p=0;	/* initialize variables used */
 	printf("How many numbers ? \n");
 	scanf("%d", &n);		/* input number of elements to insert by user */
-	for(i=0;i<n;i++){		/* loop for inserting in begining */
-		printf("Enter data to insert at begining: \n");
-		scanf("%d", &x);	
-		Insertb(x);			/* Call insert begining function and pass value from user */
-	}
-	Print();				/* Print the whole list */
+	
 	for(i=0;i<n;i++){		/* loop for inseting at the end */
 		printf("Enter data to insert at end: \n");
 		scanf("%d", &x);
 		Inserte(x);			/* Call insert begining function and pass value from user */
 	}
 	Print();				/* Print the whole list */
-	printf("Enter a node at nth position in list");
-	printf("Enter the nth position: ");
-	scanf("%d", &p);
-	printf("Enter the data : ");
-	scanf("%d", &x);
-	Insertn(p,x);
-	Print();
+	printf("Enter a node at nth position in list \n");
+	printf("Enter the nth position: \n");
+	scanf("%d", &p);		/* Read position from user */
+	printf("Enter the data to be inserted: \n");
+	scanf("%d", &x);		/* Read data from user */
+	Insertn(p,x);			/* Execute the Function to insert data at nth position */
+	Print();				/* Print the entire list */
 	return 0;
 }
