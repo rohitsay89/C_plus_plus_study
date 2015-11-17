@@ -24,7 +24,7 @@ void Insert_nth(int data, int n){
 		head = temp;
 		return;								/* Return back to the main function */
 	}
-	for(j=1;j<n;j++){							/* traverse the list till the insert location */
+	for(j=1;j<n-1;j++){							/* traverse the list till the insert location */
 		temp = temp->next;
 	}
 	struct Node *temp1;							/* After reaching that point insert a node */
@@ -76,7 +76,7 @@ void main(){
 		Insert_end(data);
 	}
 	Print();								/* Print the linked list */
-	for(i=0;i<4;i++){
+	for(i=0;i<2;i++){
 		printf("Enter the data \n");
 		scanf("%d", &data);						/* Enter the data */
 		printf("Enter the location to be inserted in linked list \n");
