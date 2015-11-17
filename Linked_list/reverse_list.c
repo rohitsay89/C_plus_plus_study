@@ -52,6 +52,7 @@ void reverse(){
 		prev = current;
 		current = next;
 	}
+	head = prev;
 }
 
 void main(){								/* Main function start here */
