@@ -18,9 +18,16 @@ int main(){
 
     //vInsertionSort();
 
-    char str[11] = "HELLOWORLD";
-    string_reverse1(str);
+    //char str[11] = "HELLOWORLD";
+    //string_reverse1(str);
 
+	uint8_t val = 0x00;
+	for( val=0x00; val < 0xFF; val++){
+		//printf("CRC of 0x%x = 0x%X\n", val, Simple_CRC8(val));
+		if(!(val%15))
+			printf("\n");
+		printf("0x%02X  ", Simple_CRC8(val));
+	}
 
     return 0;
 }

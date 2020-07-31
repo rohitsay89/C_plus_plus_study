@@ -380,5 +380,37 @@ char check_age_18_plus(int *day, int *mnth, int *year){
 		Also count numbef of odd & even digits in the number
 */
 
+uint8_t Simple_CRC8(uint16_t val){
+	uint8_t POLY = 0x1D;
+	uint8_t crc = 0x00;
+	uint16_t value = 0x00;
+	value = value + (val << 8);
 
+	int j = 0;
+	for(j=15; j >= 0; --j)
+	{
+		if((crc & 0x80) != 0){
+			// MSB set so shift it out of the crc register
+			crc = (uint8_t)(crc << 1);
+			// check the next bit of the input stream,
+			// if its one then set the 0th bit in crc variable
+			// else reset the 0th bit in crc variable
+			crc = ((value & (1 << j)) != 0) ? (crc | 0x01) : (crc & 0xFE);
+
+			// XOR now
+			crc = crc ^ POLY;
+		}
+		else{
+			// MSB not set
+			crc = (uint8_t)(crc << 1);
+
+			// check the next bit of the input stream,
+			// if its one then set the 0th bit in crc variable
+			// else reset the 0th bit in crc variable
+			crc = ((value & (1 << j)) != 0) ? (crc | 0x01) : (crc & 0xFE);
+		}
+		//printf("crc = 0x%X\n", crc);
+	}
+	return crc;
+}
 

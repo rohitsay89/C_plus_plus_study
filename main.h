@@ -33,6 +33,7 @@ void string_reverse3(char *string);
 
 void num_swapping_pointers(int *, int *);
 
+uint8_t Simple_CRC8(uint16_t val);
 
 
 #endif
