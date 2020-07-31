@@ -7,6 +7,9 @@
 int arr1[20]; // global array declare
 int arr2[20]; // global array declare
 
+uint8_t crc8Table[256];
+
+
 /* OPERATIONS ON ARRAY */
 int array_sum(){
     printf("This is function for adding contents of an array\n");
@@ -380,8 +383,7 @@ char check_age_18_plus(int *day, int *mnth, int *year){
 		Also count numbef of odd & even digits in the number
 */
 
-uint8_t Simple_CRC8(uint16_t val){
-	uint8_t POLY = 0x1D;
+uint8_t Simple_CRC8_I(uint8_t val){
 	uint8_t crc = 0x00;
 	uint16_t value = 0x00;
 	value = value + (val << 8);
@@ -398,7 +400,7 @@ uint8_t Simple_CRC8(uint16_t val){
 			crc = ((value & (1 << j)) != 0) ? (crc | 0x01) : (crc & 0xFE);
 
 			// XOR now
-			crc = crc ^ POLY;
+			crc = crc ^ POLYNOMIAL_8_BIT;
 		}
 		else{
 			// MSB not set
@@ -414,3 +416,70 @@ uint8_t Simple_CRC8(uint16_t val){
 	return crc;
 }
 
+// Calculation of 1 byte data
+uint8_t Simple_CRC8_II(uint8_t val){
+	uint8_t crc = 0x00;
+	crc = val;
+	int bitPos = 0;
+
+	for( bitPos = 0; bitPos < 8; ++bitPos){
+		if( ( crc & 0x80 ) ){
+			crc = ( (crc << 1) ^ POLYNOMIAL_8_BIT );
+		}
+		else{
+			crc = crc << 1;
+		}
+	}
+	return crc;
+}
+
+uint8_t Simple_CRC8_III(uint8_t* val, uint8_t len){
+	// initialise CRC with 0x00
+	uint8_t crc = 0x00;
+	int j = 0, i = 0;
+
+	// loop through each byte in the array val
+	for(i=0;i<len;i++){
+		crc = crc ^ val[i];
+		//printf("Crc III start of loop = 0x%X\n", crc);
+		// Loop through each bit in the byte and calculate CRC for that byte
+		// by the end of this inner loop
+		for( j = 0; j < 8; ++j){
+			if( ( crc & 0x80 ) ){
+				crc = ( (crc << 1) ^ POLYNOMIAL_8_BIT );
+			}
+			else{
+				crc = crc << 1;
+			}
+		}
+		//printf("Crc III end of loop = 0x%X\n", crc);
+	}
+	return crc;
+}
+
+// Calculation of all possible 8 bit values (0 to 255) and create lookup table
+void CRC8_table(){
+	memset(crc8Table, 0x00, 256);
+	int val = 0x00;
+	uint8_t crc = 0x00;
+	for( val=0x00; val < 256; ++val){
+		//if(!(val%15))
+		//	printf("\n");
+		crc = Simple_CRC8_II(val);
+		crc8Table[val] = crc;
+		//printf("crc8Table[%d] = 0x%02X \n",val, crc);
+	}
+}
+
+// Calculate CRC from the look up table
+uint8_t Simple_CRC8_IV(uint8_t* val, uint8_t len){
+	uint8_t crc = 0x00;
+	int index = 0;
+
+	// loop through each byte in the array val
+	for( index = 0; index < len; index++ ){
+		crc = crc ^ val[index];
+		crc = crc8Table[crc];
+	}
+	return crc;
+}

@@ -8,6 +8,8 @@
 #define cmp(h)	~h
 #define min(a, b)	((a<b)?a:b)			/* macro for minimum of 2 numbers */
 #define SIZE(arr)	(sizeof(arr)/sizeof(arr[1]))		           	/* Macro for returning size of array */
+#define POLYNOMIAL_8_BIT		0x1Du
+#define POLYNOMIAL_16_BIT
 
 /* Function Prototypes */
 
@@ -33,7 +35,11 @@ void string_reverse3(char *string);
 
 void num_swapping_pointers(int *, int *);
 
-uint8_t Simple_CRC8(uint16_t val);
+uint8_t Simple_CRC8_I(uint8_t val);
+uint8_t Simple_CRC8_II(uint8_t val);
+uint8_t Simple_CRC8_III(uint8_t* val, uint8_t len);
+uint8_t Simple_CRC8_IV(uint8_t* val, uint8_t len);
+void CRC8_table();
 
 
 #endif
