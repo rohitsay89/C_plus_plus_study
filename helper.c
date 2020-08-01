@@ -26,7 +26,7 @@ uint32_t crc32Table[256];
 		int j = 0;
 		for( j = 0; j < 8; ++j )
 		{
-			r = (r & 1? 0: (uint32_t)crc_poly_var) ^ r >> 1;
+			r = (r & 1? 0: (uint32_t)POLYNOMIAL_B) ^ r >> 1;
 		}
 		return r ^ (uint32_t)0xFF000000L;
 	}
@@ -628,7 +628,7 @@ void CRC32_table(){
 	memset(crc32Table, 0x00, sizeof(uint32_t)*256);
 	uint32_t crc = 0;
 
-	uint32_t index = 0;
+	int index = 0;
 	for( index = 0; index < 256; ++index ){
 		crc = Simple_CRC32_I((uint32_t)index);
 		crc32Table[index] = crc;
@@ -652,6 +652,7 @@ uint32_t Simple_CRC32_II(uint8_t* val, uint8_t len){
 	return crc;
 }
 
+// The following algorithm produces the same CRC value as produced by 7-Zip software (right click bin file and click CRC-SHA)
 void crc32(const void *data, size_t n_bytes, uint32_t* crc)
 {
 	for(size_t i = 0; i < n_bytes; ++i)

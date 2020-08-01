@@ -30,10 +30,9 @@ int main(){
 
 void CRC_Practice(){
 
-	CRC32_table();
 
+	printf("CRC8 of 0x%X = 0x%X\n", 0xC2, Simple_CRC8_II(0xC2));
 #if 0
-	printf("CRC of 0x%X = 0x%X\n", 0xC2, Simple_CRC8_II(0xC2));
 	uint8_t val = 0x00;
 	for( val=0x00; val < 0xFF; val++){
 		//printf("CRC of 0x%x = 0x%X\n", val, Simple_CRC8(val));

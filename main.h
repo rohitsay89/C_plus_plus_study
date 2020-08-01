@@ -12,6 +12,7 @@
 #define POLYNOMIAL_16_BIT		0x1021
 //#define POLYNOMIAL_32_BIT		0x04C11DB7
 #define POLYNOMIAL_32_BIT		0x1EDC6F41
+#define POLYNOMIAL_B			0xEDB88320L
 #define FILE_SIZE_128k			131072
 
 /* Function Prototypes */
@@ -54,5 +55,6 @@ uint32_t Simple_CRC32_II(uint8_t* val, uint8_t len);
 void CRC32_table();
 
 void crc32(const void *data, size_t n_bytes, uint32_t* crc);
+uint32_t crc32_for_byte(uint32_t r);
 
 #endif
