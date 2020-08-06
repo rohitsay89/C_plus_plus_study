@@ -6,7 +6,8 @@
 #include "main.h"
 
 int main(){
-    printf("Hello World \n");
+    printf("C program to learn some C basics \n");
+    printf("Build date = %s, Time = %s\n\n", __DATE__, __TIME__);
     //array_sum();
 
     //inverse_num(55);
@@ -24,6 +25,7 @@ int main(){
     //string_reverse1(str);
 
 	CRC_Practice();
+
 
     return 0;
 }

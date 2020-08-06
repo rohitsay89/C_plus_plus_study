@@ -660,3 +660,5 @@ void crc32(const void *data, size_t n_bytes, uint32_t* crc)
 		*crc = CRCTable[(uint8_t)*crc ^ ((uint8_t*)data)[i]] ^ *crc >> 8;
 	}
 }
+
+
