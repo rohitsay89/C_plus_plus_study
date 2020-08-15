@@ -29,11 +29,17 @@ int main(){
     return 0;
 }
 
-void CRC_Practice(){
-
-
-	printf("CRC8 of 0x%X = 0x%X\n", 0xC2, Simple_CRC8_II(0xC2));
+void CRC_Practice()
+{
+	uint8_t data = 0xC2;
+	printf("CRC for 0x%X = 0x%X\n", data, calculateSTM32F4crc(&data, 1));
 #if 0
+	//GenerateCRC32Table(POLYNOMIAL_B);
+	uint32_t CRC32 = 0;
+	crc32(&data, 1, &CRC32);
+	printf("CRC8 of 0x%X = 0x%X\n", 0xC2, Simple_CRC8_II(0xC2));
+	printf("CRC8 of 0x%X = 0x%X\n", 0xC2, CRC32);
+//#if 0
 	uint8_t val = 0x00;
 	for( val=0x00; val < 0xFF; val++){
 		//printf("CRC of 0x%x = 0x%X\n", val, Simple_CRC8(val));
@@ -52,7 +58,7 @@ void CRC_Practice(){
 	//printf("CRC = 0x%0X\n", Simple_CRC16_II(arr, 2));
 
 
-	//Simple_CRC32_I(0x01);
+	printf("CRC for 0x%X = 0x%X\n", data, Simple_CRC32_I(data));
 	//uint8_t arr[2] = {0x01, 0x02};
 	//CRC32_table();
 	//printf("CRC = 0x%08X\n", Simple_CRC32_II(arr, 2));

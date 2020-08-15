@@ -8,12 +8,14 @@
 #define cmp(h)	~h
 #define min(a, b)	((a<b)?a:b)			/* macro for minimum of 2 numbers */
 #define SIZE(arr)	(sizeof(arr)/sizeof(arr[1]))		           	/* Macro for returning size of array */
-#define POLYNOMIAL_8_BIT		0x1Du
-#define POLYNOMIAL_16_BIT		0x1021
-//#define POLYNOMIAL_32_BIT		0x04C11DB7
-#define POLYNOMIAL_32_BIT		0x1EDC6F41
-#define POLYNOMIAL_B			0xEDB88320L
-#define FILE_SIZE_128k			131072
+#define POLYNOMIAL_8_BIT				0x1Du
+#define POLYNOMIAL_16_BIT				0x1021
+
+#define POLYNOMIAL_32_BIT_STM32			0x04C11DB7
+#define POLYNOMIAL_32_BIT_7ZIP			0x1EDC6F41
+#define POLYNOMIAL_B					0xEDB88320
+
+#define FILE_SIZE_128k					131072
 
 /* Function Prototypes */
 
@@ -54,7 +56,10 @@ uint32_t Simple_CRC32_I(uint8_t val);
 uint32_t Simple_CRC32_II(uint8_t* val, uint8_t len);
 void CRC32_table();
 
+void GenerateCRC32Table();
+uint32_t crc32_for_byte(uint32_t r, uint32_t POLY);
 void crc32(const void *data, size_t n_bytes, uint32_t* crc);
-uint32_t crc32_for_byte(uint32_t r);
+
+uint32_t calculateSTM32F4crc(uint8_t *buff, uint32_t len);
 
 #endif

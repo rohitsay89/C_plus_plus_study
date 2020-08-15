@@ -614,7 +614,7 @@ uint32_t Simple_CRC32_I(uint8_t val){
 	int bitPos = 0;
 	for( bitPos = 0; bitPos < 8; ++bitPos){
 		if( crc & 0x80000000 ){
-			crc = ( (crc << 1) ^ POLYNOMIAL_32_BIT );
+			crc = ( (crc << 1) ^ POLYNOMIAL_32_BIT_7ZIP );
 		}
 		else{
 			crc = crc << 1;
@@ -652,6 +652,32 @@ uint32_t Simple_CRC32_II(uint8_t* val, uint8_t len){
 	return crc;
 }
 
+/* Generate CRCTable */
+
+void GenerateCRC32Table(uint32_t POLY)
+{
+	printf("Generate table using POLY = 0x%08X\n", POLY);
+	static uint32_t GenerateCRCTable[0x100];
+	for(size_t i = 0; i < 0x100; ++i)
+	{
+		GenerateCRCTable[i] = crc32_for_byte(i, POLY);
+		printf("0x%08X  ", GenerateCRCTable[i]);
+		if(!((i+1)%8)){
+			printf("\n");
+		}
+	}
+}
+
+uint32_t crc32_for_byte(uint32_t r, uint32_t POLY)
+{
+	int j = 0;
+	for( j = 0; j < 8; ++j )
+	{
+		r = (r & 1? 0: (uint32_t)POLY) ^ r >> 1;
+	}
+	return r ^ (uint32_t)0xFF000000L;
+}
+
 // The following algorithm produces the same CRC value as produced by 7-Zip software (right click bin file and click CRC-SHA)
 void crc32(const void *data, size_t n_bytes, uint32_t* crc)
 {
@@ -659,6 +685,34 @@ void crc32(const void *data, size_t n_bytes, uint32_t* crc)
 	{
 		*crc = CRCTable[(uint8_t)*crc ^ ((uint8_t*)data)[i]] ^ *crc >> 8;
 	}
+}
+
+
+/*
+ * CRC Calculation for compatibility with STM32F4's CRC peripheral
+ */
+uint32_t calculateSTM32F4crc(uint8_t *buff, uint32_t len)
+{
+    uint32_t i;
+
+    uint32_t Crc = 0XFFFFFFFF;
+
+    for(uint32_t n = 0 ; n < len ; n++ )
+    {
+        uint32_t data = buff[n];
+        Crc = Crc ^ data;
+        for(i=0; i<32; i++)
+        {
+
+        if (Crc & 0x80000000)
+            Crc = (Crc << 1) ^ POLYNOMIAL_32_BIT_STM32; // Polynomial used in STM32
+        else
+            Crc = (Crc << 1);
+        }
+
+    }
+
+  return(Crc);
 }
 
 
