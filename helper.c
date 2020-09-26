@@ -715,4 +715,114 @@ uint32_t calculateSTM32F4crc(uint8_t *buff, uint32_t len)
   return(Crc);
 }
 
+void CRC_Practice()
+{
+	uint8_t data = 0xC2;
+	printf("CRC for 0x%X = 0x%X\n", data, calculateSTM32F4crc(&data, 1));
+#if 0
+	//GenerateCRC32Table(POLYNOMIAL_B);
+	uint32_t CRC32 = 0;
+	crc32(&data, 1, &CRC32);
+	printf("CRC8 of 0x%X = 0x%X\n", 0xC2, Simple_CRC8_II(0xC2));
+	printf("CRC8 of 0x%X = 0x%X\n", 0xC2, CRC32);
+//#if 0
+	uint8_t val = 0x00;
+	for( val=0x00; val < 0xFF; val++){
+		//printf("CRC of 0x%x = 0x%X\n", val, Simple_CRC8(val));
+		if(!(val%15))
+			printf("\n");
+		printf("0x%02X  ", Simple_CRC8_II(val));
+	}
 
+	CRC8_table();
+	uint8_t arr[2] = {0x01, 0x02};
+	//printf("CRC = 0x%0X\n", Simple_CRC8_III(arr, 2));
+	printf("CRC = 0x%0X\n", Simple_CRC8_IV(arr, 2));
+	//printf("CRC of 0x%X = 0x%X\n", 0xC2, Simple_CRC16_I(0xC2));
+	//uint8_t arr[2] = {0x01, 0x02};
+	//CRC16_table();
+	//printf("CRC = 0x%0X\n", Simple_CRC16_II(arr, 2));
+
+
+	printf("CRC for 0x%X = 0x%X\n", data, Simple_CRC32_I(data));
+	//uint8_t arr[2] = {0x01, 0x02};
+	//CRC32_table();
+	//printf("CRC = 0x%08X\n", Simple_CRC32_II(arr, 2));
+#endif
+
+#if 0
+	// CRC32 calculation of a binary file:
+	FILE *fp = NULL;
+	uint8_t readBuf[20];
+	int application_size = 0;
+	uint8_t application_file_buffer[FILE_SIZE_128k] = {0};
+	uint32_t CRC32 = 0;
+
+	memset(readBuf, 0x00, 20);
+	int i = 0;
+
+	fp = fopen("sample_files/test.bin", "rb");
+	if(fp){
+		//file opened
+		fseek(fp, 0L, SEEK_END);
+		application_size = ftell(fp);
+		printf("Application size = %d\n", application_size);
+		fseek(fp, 0L, SEEK_SET);
+		fread(application_file_buffer, 1, application_size, fp);
+		crc32(application_file_buffer, application_size, &CRC32);
+		printf("CRC32 = 0x%08X\n", CRC32);
+		//CRC32_table();
+		//printf("CRC = 0x%08X\n", Simple_CRC32_II(application_file_buffer, application_size));
+
+		fclose(fp);
+	}
+	else{
+		printf("Unable to open the file mentioned\n");
+	}
+#endif
+
+}
+
+
+// ======================= MATH Functions ================= //
+
+// Print Fibonacci sequence upto nth number
+uint64_t vFibonacciSequence(uint32_t n)
+{
+	// using recursion
+#if 0
+	static uint32_t febSeq;
+	if(n <= 1){
+		return n;
+	}
+	else{
+		febSeq = vFibonacciSequence(n-1) + vFibonacciSequence(n-2);
+		//if(n%2)
+			//printf("\t\t");
+		//printf("febSeq = %d\n", febSeq);
+		return febSeq;
+	}
+#endif
+
+
+	// using for loop
+#if 1
+	uint32_t i = 0;
+	uint64_t prev = 0LL;
+	uint64_t current = 1LL;
+	uint64_t next = 0LL;
+
+	//printf("%d\n%d\n", prev, current);
+	for( i = 1; i <= n-1; ++i )
+	{
+		next = prev + current;
+		//printf("%d\n", next);
+		prev = current;
+		current = next;
+	}
+	return next;
+#endif
+
+
+	return 0;
+}

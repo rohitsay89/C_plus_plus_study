@@ -62,4 +62,6 @@ void crc32(const void *data, size_t n_bytes, uint32_t* crc);
 
 uint32_t calculateSTM32F4crc(uint8_t *buff, uint32_t len);
 
+uint64_t vFibonacciSequence(uint32_t );
+
 #endif
