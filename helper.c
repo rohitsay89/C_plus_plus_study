@@ -69,6 +69,64 @@ static const uint32_t CRCTable[] =
 };
 
 /* OPERATIONS ON ARRAY */
+void array_address_calculation()
+{
+	printf("This is Array address calculation module\n");
+#if 0
+	printf("1-D array address calculation\n");
+	int a[10] = {1,2,3,4,5,6,7,8,9,10};
+	int i = 0;
+	printf("Base Address of array = 0x%08X\n", &a[0]);
+	for(i=0;i<10;++i){
+		printf("0x%08X: a[%d] = %d \n", &a[i], i, a[i]);
+	}
+	uint32_t addr = &a[0];
+	// address if 5th element =
+	addr = addr + 5*sizeof(int);
+	printf("address of 5th element of a = 0x%08X\n", addr);
+#endif
+
+#if 1
+	printf("2-D array address calculation, assuming row major format\n");
+	uint32_t row = ROW_SIZE_3X3_MATRIX;
+	uint32_t col = COL_SIZE_3X3_MATRIX;
+	int a[ROW_SIZE_3X3_MATRIX][COL_SIZE_3X3_MATRIX] = {{1,2,3}, {4,5,6}, {7,8,9}};
+	int r = 0, c = 0;
+	printf("Base Address of array = 0x%08X\n", &a[0]);
+	for(r=0;r<3;++r){
+		for(c=0;c<3;c++){
+			printf("0x%08X: a[%d][%d] = %d \n", &a[r][c], r, c, a[r][c]);
+			//printf("%02X ", a[r][c]);
+		}
+		//printf("\n");
+	}
+	uint32_t addr = 0;
+	uint32_t base = &a[0];
+
+	// address of r = 2, c = 3
+	r = 0;
+	c = 0;
+	addr = base + r*col*sizeof(int) + c*sizeof(int);
+	printf("address of a[%d][%d] = 0x%08X\n", r, c, addr);
+
+	r = 1;
+	c = 2;
+	addr = base + r*col*sizeof(int) + c*sizeof(int);
+	printf("address of a[%d][%d] = 0x%08X\n", r, c, addr);
+
+	r = 1;
+	c = 1;
+	addr = base + r*col*sizeof(int) + c*sizeof(int);
+	printf("address of a[%d][%d] = 0x%08X\n", r, c, addr);
+
+	r = 2;
+	c = 2;
+	addr = base + r*col*sizeof(int) + c*sizeof(int);
+	printf("address of a[%d][%d] = 0x%08X\n", r, c, addr);
+#endif
+
+}
+
 int array_sum(){
     printf("This is function for adding contents of an array\n");
     int n = 0;
@@ -403,6 +461,44 @@ void string_reverse3(char *string){
 		string[i] = string[i]-string[len];    // swap two variables
 	}
 	// shift the start pointer 'string' away from start and shift the end pointer 'len' away from end till it reaches halfway.
+}
+
+void vstringSearch(){
+	char s1[] = "Actually, these are the hardest to explain, so we will come back to this later";
+	char s2[] = "explain";
+	strSrch(s1, s2);
+}
+
+void strSrch(char *s1, char *s2){
+	int i = 0, j=0, k=0;
+	while(s1[i] != '\0'){
+		i++;
+	}
+	printf("S1 length = %d\n", i);
+	int I1 = i;
+	i=0;
+	while(s2[i] != '\0'){
+		i++;
+	}
+	printf("S2 length = %d\n", i);
+	int I2 = i;
+	printf("Str1 = %s\nStr2 = %s\n", s1, s2);
+	for(i=0;i<=I1-I2;i++)
+	{
+		j=0;
+		k=i;
+		while( (s1[k] == s2[j]) && (j<I2) )
+		{
+			k++;
+			j++;
+		}
+		if(j == I2){
+			printf("String found\n");
+			return ;
+		}
+	}
+	printf("String not found\n");
+	return ;
 }
 
 void num_swapping_pointers(int *p1, int *p2){
@@ -826,3 +922,49 @@ uint64_t vFibonacciSequence(uint32_t n)
 
 	return 0;
 }
+
+void polynomialUsingArray(){
+	poly_t p1, p2, p3;
+	initPoly(&p1);
+	initPoly(&p2);
+	initPoly(&p3);
+
+	polyAppend(&p1, 78,7);
+	polyAppend(&p1, 3,6);
+	polyAppend(&p1, 44,5);
+	polyAppend(&p1, 45,4);
+	polyAppend(&p1, 2,3);
+	polyAppend(&p1, 2,2);
+	polyAppend(&p1, 1,1);
+	polyAppend(&p1, 90,0);
+
+	printPoly(&p1);
+
+
+}
+
+void initPoly(poly_t *p){
+	p->noofitmes = 0;
+
+	// fill up zeros for all coefficients
+	int i = 0;
+	for(i=0;i<10; ++i){
+		p->t[i].coeff = 0;
+		p->t[i].exp = 0;
+	}
+}
+
+void polyAppend(poly_t *p, int coff, uint32_t exp){
+	p->t[p->noofitmes].coeff = coff;
+	p->t[p->noofitmes].exp = exp;
+	(p->noofitmes)++;
+}
+
+void printPoly(poly_t *p){
+	int i = 0;
+	for(i=0; i<p->noofitmes; ++i){
+		printf("%dx^%d + ", p->t[i].coeff, p->t[i].exp);
+	}
+}
+
+

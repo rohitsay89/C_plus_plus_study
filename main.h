@@ -17,7 +17,22 @@
 
 #define FILE_SIZE_128k					131072
 
+#define ROW_SIZE_3X3_MATRIX				3u
+#define COL_SIZE_3X3_MATRIX				3u
+
 /* Function Prototypes */
+
+typedef struct term{
+	int coeff;
+	int exp;
+}term_t;
+
+typedef struct poly{
+	term_t t[10];
+	int noofitmes;
+}poly_t;
+
+void array_address_calculation();
 
 int array_sum();
 float array_avg();
@@ -38,6 +53,9 @@ void vInsertionSort();
 void string_reverse1(char *string);
 void string_reverse2(char *string);
 void string_reverse3(char *string);
+
+void vstringSearch();
+void strSrch(char *s1, char *s2);
 
 void num_swapping_pointers(int *, int *);
 
@@ -63,5 +81,9 @@ void crc32(const void *data, size_t n_bytes, uint32_t* crc);
 uint32_t calculateSTM32F4crc(uint8_t *buff, uint32_t len);
 
 uint64_t vFibonacciSequence(uint32_t );
+void polynomialUsingArray();
+void initPoly(poly_t *p);
+void polyAppend(poly_t *p, int coff, uint32_t exp);
+void printPoly(poly_t *p);
 
 #endif
