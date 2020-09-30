@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
 
 #include "main.h"
 
@@ -964,6 +965,53 @@ void printPoly(poly_t *p){
 	int i = 0;
 	for(i=0; i<p->noofitmes; ++i){
 		printf("%dx^%d + ", p->t[i].coeff, p->t[i].exp);
+	}
+}
+
+// ========================================================= //
+// ======================= Recursion ======================= //
+
+void vLearnRecursion(){
+	// calculating factorial using recursion
+	printf("fact(12) = %d\n",  fact(12));
+	printf("summation(12) = %d\n",  summation(12));
+	print1_n(10);
+}
+
+uint32_t fact(uint32_t n){
+	if(n==1){
+		return 1;
+	}
+	return n * fact(n-1);
+}
+
+uint32_t summation(uint32_t n){
+	if(n==0){
+		return 0;
+	}
+	return (n+summation(n-1));
+}
+
+void print1_n(uint32_t n){
+	if(n==0){
+		printf("%d ", n);
+		return;
+	}
+	printf(" %d \t", n);		// for descending order print
+	print1_n(n-1);
+	//printf(" %d \t", n);		// for ascending order print
+}
+
+// ========================================================= //
+void vListFilesInDir(){
+	DIR *d;
+	struct dirent *dir;
+	d = opendir(".");
+	if(d){
+		while ((dir = readdir(d)) != NULL){
+			printf("%s\n", dir->d_name);
+		}
+		closedir(d);
 	}
 }
 

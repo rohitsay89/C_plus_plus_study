@@ -86,4 +86,13 @@ void initPoly(poly_t *p);
 void polyAppend(poly_t *p, int coff, uint32_t exp);
 void printPoly(poly_t *p);
 
+/* Recursion */
+void vLearnRecursion();
+uint32_t fact(uint32_t);
+uint32_t summation(uint32_t n);
+void print1_n(uint32_t n);
+
+
+void vListFilesInDir();
+
 #endif
