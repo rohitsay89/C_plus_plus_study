@@ -29,6 +29,7 @@ int main(){
     vLearnRecursion();
     //vListFilesInDir();
 
+    printf("Program execution has ended\n");
     return 0;
 }
 

@@ -884,44 +884,35 @@ void CRC_Practice()
 // ======================= MATH Functions ================= //
 
 // Print Fibonacci sequence upto nth number
-uint64_t vFibonacciSequence(uint32_t n)
+uint32_t vFibonacciSequence(uint32_t n)
 {
-	// using recursion
 #if 0
-	static uint32_t febSeq;
-	if(n <= 1){
-		return n;
+	// using recursion: this method is very inefficient
+	if(n == 1 || n==0){
+		return 1;
 	}
-	else{
-		febSeq = vFibonacciSequence(n-1) + vFibonacciSequence(n-2);
-		//if(n%2)
-			//printf("\t\t");
-		//printf("febSeq = %d\n", febSeq);
-		return febSeq;
-	}
+	return( vFibonacciSequence(n-1) + vFibonacciSequence(n-2) );
 #endif
 
-
-	// using for loop
 #if 1
+	// using for loop
 	uint32_t i = 0;
-	uint64_t prev = 0LL;
-	uint64_t current = 1LL;
-	uint64_t next = 0LL;
+	uint32_t prev = 0;
+	uint32_t current = 1;
+	uint32_t next = 0;
 
 	//printf("%d\n%d\n", prev, current);
+	printf("1 ");
 	for( i = 1; i <= n-1; ++i )
 	{
 		next = prev + current;
-		//printf("%d\n", next);
+		printf("%d ", next);
 		prev = current;
 		current = next;
 	}
+	printf("\n");
 	return next;
 #endif
-
-
-	return 0;
 }
 
 void polynomialUsingArray(){
@@ -973,9 +964,96 @@ void printPoly(poly_t *p){
 
 void vLearnRecursion(){
 	// calculating factorial using recursion
-	printf("fact(12) = %d\n",  fact(12));
-	printf("summation(12) = %d\n",  summation(12));
-	print1_n(10);
+
+	//printf("fact(12) = %d\n",  fact(12));
+
+	//printf("summation(12) = %d\n",  summation(12));
+
+	//print1_to_n(10);
+
+	//printf("Sum of digits using recursion = sum_of_digits(45329)= %d\n", sum_of_digits(45329));
+
+	//printf("Print Digits using recursion 45329 \n");
+	//display_digits_of_number(45329);
+
+	/*
+	printf("Convert from decimal 20 to any base using recursion \n");
+	printf("Base 2 = ");
+	dec_bin_conv(200, 2);
+	printf("\n");
+	printf("Base 8 = ");
+	dec_bin_conv(200, 8);
+	printf("\n");
+	printf("Base 10 = ");
+	dec_bin_conv(200, 10);
+	printf("\n");
+	printf("Base 16 = ");
+	dec_bin_conv(200, 16);
+	printf("\n");
+	*/
+
+	//printf("power function using recursion = %d\n", power(100,2));
+
+	/*
+	printf("Prime factorization\n");
+	uint32_t i = 0;
+	for(i=2;i<=5000; ++i){
+		PFactors(i);
+		printf("\n");
+	}
+	*/
+
+	/*
+	 * Euclids folmula:
+	 * 			  {a					b=0   		(base case)
+	 * GCD(a,b) = {GCD(b, a%b)			otherwise  	(recursive case)
+	 *
+	 * */
+	//printf("Greatest common Divisor using recursion %d\n", greatest_common_divisor(42,21));
+
+	/*
+	 * Fibonacci sequence:
+	 *
+	 * fib(n) = {1									n=0 or n=1 (base case)
+	 * 			{fib(n-1) + fib(n-2)				n>1		   (recursive case)
+	 *
+	 * */
+	//printf("Fibonacci sequence using recursion = %d\n", vFibonacciSequence(20));
+
+	//printf("Divisibility by 9 = %d\n", divisibility_by_9(81));
+
+	//printf("Divisibility by 11 = %d\n", divisibility_by_11(121));
+
+	//printf("Tower of hanoi with 4 rings:\n");
+	//char source = 'A', temp = 'B', dest = 'C';
+	//tofh(10, source, temp, dest);
+
+	//char *str = "ANAGHAROHIT";
+	//char *str = "Gprof is a profiling program which collects";
+	//printf("Length of string = %d\n", strLengthRec(str));
+	//printStrFwdRev(str);
+
+	// Linked list here:
+	node *HEAD = NULL;
+	HEAD = InsertEnd(HEAD, 55);
+	HEAD = InsertEnd(HEAD, 56);
+	HEAD = InsertEnd(HEAD, 57);
+	HEAD = InsertEnd(HEAD, 58);
+	HEAD = InsertEnd(HEAD, 59);
+	HEAD = InsertEnd(HEAD, 60);
+	HEAD = InsertEnd(HEAD, 61);
+	printList(HEAD);
+	printf("\n");
+	// length of LL using recursion
+	printf("Length of Linked List = %d\n", llLengthRec(HEAD));
+	printf("Length of all nodes in Linked List = %d\n", llSumOfEle(HEAD));
+	DeleteEnd(HEAD);
+	printList(HEAD);
+	printf("\n");
+	DeleteEnd(HEAD);
+	printList(HEAD);
+	printf("\n");
+
 }
 
 uint32_t fact(uint32_t n){
@@ -992,17 +1070,189 @@ uint32_t summation(uint32_t n){
 	return (n+summation(n-1));
 }
 
-void print1_n(uint32_t n){
+void print1_to_n(uint32_t n){
 	if(n==0){
 		printf("%d ", n);
 		return;
 	}
 	printf(" %d \t", n);		// for descending order print
-	print1_n(n-1);
+	print1_to_n(n-1);
 	//printf(" %d \t", n);		// for ascending order print
 }
 
+uint32_t sum_of_digits(uint32_t n){
+
+	// did we reach till last digit ?
+	if(n/10 == 0){
+		return n;
+	}
+	//uint32_t sum = 0;
+	//sum = n%10 + sum_of_digits(n/10);
+	//printf("%d ", sum);
+	//return sum;
+	return n%10 + sum_of_digits(n/10);
+}
+
+void display_digits_of_number(uint32_t n)
+{
+	if(n/10 == 0){
+		printf("%d\t", n%10);
+		return;
+	}
+	printf("%d\t", n%10);		// for printing in reverse order
+	display_digits_of_number(n/10);
+	//printf("%d\t", n%10);		// for printing in normal order
+}
+
+void dec_bin_conv(uint32_t n, uint8_t base){
+	// calculate remainder in winding phase
+	uint32_t rem = n % base;
+	if(n == 0){
+		return;
+	}
+	//printf("%d", n%base);		// for printing in reverse order
+	dec_bin_conv(n/base, base);
+	// print the remainder in unwinding phase
+	if(rem < 10)
+		printf("%d", rem);		// for printing in normal order
+	else
+		printf("%c", rem-10+'A');
+}
+
+uint32_t power(uint32_t a, int n){
+	if(n==0){
+		return 1;
+	}
+	else
+		return (a * power(a, n-1));
+}
+
+void PFactors(int num){
+	int i = 2;
+	if(num == 1){
+		return;
+	}
+	while(num%i != 0){
+		i++;
+	}
+	printf("%d * ", i);
+	PFactors(num/i);
+}
+
+uint32_t greatest_common_divisor(uint32_t a, uint32_t b ){
+	// base case
+	if(b==0){
+		return a;
+	}
+	// recursive call
+	return greatest_common_divisor(b, a%b);
+}
+
+// a number is divisible by 9 if and only if the sum of digits of number
+// isdivisible by 9
+uint32_t divisibility_by_9(uint32_t n){
+#if 1
+	// using previous defined function
+	if(n==9){
+		return 1;
+	}
+	if(n<9){
+		return 0;
+	}
+	if(sum_of_digits(n) == 9){
+		return 1;
+	}
+	else
+		return 0;
+#endif
+
+#if 0
+	// using recursion
+	int sumofdigits = 0;
+	if(n==9)
+		return 1;
+	if(n<9)
+		return 0;
+	sumofdigits = 0;
+	while(n>0){
+		sumofdigits = sumofdigits + n%10;
+		n = n/10;
+	}
+	return divisibility_by_9(sumofdigits);
+
+#endif
+}
+
+// the number is divisible by 11 if the diff of digits at even position and odd position
+// is 0 or is divisible by 11
+uint32_t divisibility_by_11(uint32_t n){
+
+	uint32_t s_odd=0, s_even=0, diff=0;
+
+	if(n==0)
+		return 1;
+	if(n<10)
+		return 0;
+
+	while(n>0){
+		s_odd = s_odd + n%10;
+		n=n/10;
+		s_even = s_even + n%10;
+		n=n/10;
+	}
+
+	diff = (s_odd > s_even) ? (s_odd - s_even) : (s_even - s_odd );
+	return divisibility_by_11(diff);
+}
+
+// Tower of Hanaoi using recursion conditions
+// 1. we can move only one disk form one pillar to another
+// 2. Larger disk cannot be placed on smalled pillar
+
+void tofh(int ndisk, char source, char temp, char dest){
+	if(ndisk == 1){
+		printf("Move disk %d from %c---->%c\n", ndisk, source, dest);
+		return;
+	}
+	tofh(ndisk-1, source, dest, temp);
+	printf("move Disk %d from %c---->%c\n", ndisk, source, dest);
+	tofh(ndisk-1, temp, source, dest);
+}
+
+uint32_t strLengthRec(char *str)
+{
+	if(*str == '\0')
+		return 0;
+	return (1 + strLengthRec(str+1));
+}
+
+void printStrFwdRev(char *str){
+	if(*str == '\0')
+		return;
+	printf("%c",*str);	// print forward
+	printStrFwdRev(str+1);
+	//printf("%c", *str);		// print reverse
+}
+
+uint32_t llLengthRec(node *n){
+
+	if(n==NULL)
+		return 0;
+	return (1 + llLengthRec(n->next));
+}
+
+uint32_t llSumOfEle(node *n)
+{
+	if(n==NULL)
+		return 0;
+	return (n->value + llSumOfEle(n->next));
+}
+
+
+
 // ========================================================= //
+// =================== Directory handling ================== //
+
 void vListFilesInDir(){
 	DIR *d;
 	struct dirent *dir;
@@ -1015,4 +1265,73 @@ void vListFilesInDir(){
 	}
 }
 
+// ========================================================= //
+// =================== LinkedList module =================== //
+
+node* InsertEnd(node *head, int value)
+{
+	if(head == NULL){
+		node *temp = (node*)malloc(sizeof(node));
+		temp->value = value;
+		temp->next = NULL;
+		head = temp;
+		return head;
+	}
+
+#if 0
+	node *temp = NULL;
+	temp = head;
+	while(temp->next != NULL){
+		temp = temp->next;
+	}
+	node *newNode = (node*)malloc(sizeof(node));
+	newNode->value = value;
+	newNode->next = NULL;
+	temp->next = newNode;
+
+	return head;
+#endif
+
+#if 1
+	head->next = InsertEnd(head->next, value);
+	return head;
+#endif
+}
+
+void printList(node *head)
+{
+#if 0
+	// without recursion
+	if(head == NULL){
+		printf("List is empty, nothing to print\n");
+		return;
+	}
+	node *temp = NULL;
+	temp = head;
+	while(temp != NULL){
+		printf("%d ", temp->value);
+		temp = temp->next;
+	}
+#endif
+
+#if 1
+	// with recursion
+	if(head == NULL)
+		return;
+	printf("%d ", head->value);			// forward list print
+	printList(head->next);
+	//printf("%d ", head->value);			// reverse list print
+#endif
+}
+
+node* DeleteEnd(node *head){
+	if(head->next == NULL){
+		free(head);
+		return NULL;
+	}
+	head->next = DeleteEnd(head->next);
+	return head;
+}
+
+// ========================================================= //
 

@@ -20,7 +20,7 @@
 #define ROW_SIZE_3X3_MATRIX				3u
 #define COL_SIZE_3X3_MATRIX				3u
 
-/* Function Prototypes */
+/* Struct Typedefs */
 
 typedef struct term{
 	int coeff;
@@ -32,6 +32,14 @@ typedef struct poly{
 	int noofitmes;
 }poly_t;
 
+// single linked list
+typedef struct node
+{
+	int value;
+	struct node *next;
+}node;
+
+/* Function Prototypes */
 void array_address_calculation();
 
 int array_sum();
@@ -80,7 +88,7 @@ void crc32(const void *data, size_t n_bytes, uint32_t* crc);
 
 uint32_t calculateSTM32F4crc(uint8_t *buff, uint32_t len);
 
-uint64_t vFibonacciSequence(uint32_t );
+uint32_t vFibonacciSequence(uint32_t );
 void polynomialUsingArray();
 void initPoly(poly_t *p);
 void polyAppend(poly_t *p, int coff, uint32_t exp);
@@ -90,9 +98,26 @@ void printPoly(poly_t *p);
 void vLearnRecursion();
 uint32_t fact(uint32_t);
 uint32_t summation(uint32_t n);
-void print1_n(uint32_t n);
-
+void print1_to_n(uint32_t n);
+uint32_t sum_of_digits(uint32_t);
+void display_digits_of_number(uint32_t n);
+void dec_bin_conv(uint32_t, uint8_t);
+uint32_t power(uint32_t a, int n);
+void PFactors(int num);
+uint32_t greatest_common_divisor(uint32_t, uint32_t);
+uint32_t divisibility_by_9(uint32_t n);
+uint32_t divisibility_by_11(uint32_t n);
+void tofh(int ndisk, char source, char temp, char dest);
+uint32_t strLengthRec(char *str);
+void printStrFwdRev(char *str);
+uint32_t llLengthRec(node *n);
+uint32_t llSumOfEle(node *n);
 
 void vListFilesInDir();
+
+/* Linked List helpers */
+node* InsertEnd(node *head, int value);
+node* DeleteEnd(node *head);
+void printList(node *head);
 
 #endif

@@ -28,7 +28,7 @@ all: C_practice.exe
 C_practice.exe: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MinGW C Linker'
-	gcc  -o "C_practice.exe" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -pg -o "C_practice.exe" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
