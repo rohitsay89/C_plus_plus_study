@@ -1033,6 +1033,7 @@ void vLearnRecursion(){
 	//printf("Length of string = %d\n", strLengthRec(str));
 	//printStrFwdRev(str);
 
+#if 0
 	// Linked list here:
 	node *HEAD = NULL;
 	HEAD = InsertEnd(HEAD, 55);
@@ -1053,8 +1054,29 @@ void vLearnRecursion(){
 	DeleteEnd(HEAD);
 	printList(HEAD);
 	printf("\n");
+#endif
+
+	// book_exercise
+	// Ans 1:
+	printf("%d %d\n", func1(3,8),func2(3,8));
 
 }
+
+int func1(int a, int b)
+{
+	printf("a = %d,  b = %d\n", a,b);
+	if(a>b)
+		return 0;
+	return (b + func1(a, b-1));
+}
+
+
+int func2(int a, int b){
+	if(a>b)
+		return 0;
+	return (a + func2(a+1, b));
+}
+
 
 uint32_t fact(uint32_t n){
 	if(n==1){
@@ -1208,7 +1230,6 @@ uint32_t divisibility_by_11(uint32_t n){
 // Tower of Hanaoi using recursion conditions
 // 1. we can move only one disk form one pillar to another
 // 2. Larger disk cannot be placed on smalled pillar
-
 void tofh(int ndisk, char source, char temp, char dest){
 	if(ndisk == 1){
 		printf("Move disk %d from %c---->%c\n", ndisk, source, dest);
@@ -1241,8 +1262,7 @@ uint32_t llLengthRec(node *n){
 	return (1 + llLengthRec(n->next));
 }
 
-uint32_t llSumOfEle(node *n)
-{
+uint32_t llSumOfEle(node *n){
 	if(n==NULL)
 		return 0;
 	return (n->value + llSumOfEle(n->next));

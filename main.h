@@ -96,6 +96,11 @@ void printPoly(poly_t *p);
 
 /* Recursion */
 void vLearnRecursion();
+
+int func1(int a, int b);
+int func2(int a, int b);
+
+
 uint32_t fact(uint32_t);
 uint32_t summation(uint32_t n);
 void print1_to_n(uint32_t n);
