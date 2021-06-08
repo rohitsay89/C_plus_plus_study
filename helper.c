@@ -3,6 +3,10 @@
 #include <string.h>
 #include <dirent.h>
 
+#ifdef __WIN32
+#include "Windows.h"
+#endif
+
 #include "main.h"
 
 int arr1[20]; // global array declare
@@ -1354,4 +1358,67 @@ node* DeleteEnd(node *head){
 }
 
 // ========================================================= //
+// =================== State Machine module================= //
 
+enum{
+	INIT = 0,
+	StateA,
+	StateB,
+	StateC,
+	END,
+	STATE_MAX
+};
+
+/*
+ * State
+ * 0 = Init
+ * A = StateA
+ * B = StateB
+ * C = StateC
+ *
+ *
+ * */
+
+void vLearnStateMachine(void)
+{
+	uint32_t count = 0;
+	uint8_t state = 0;
+
+	while(1)
+	{
+		switch(state)
+		{
+		case INIT:
+			printf("Inside Init state here, count = %d\n", count);
+			state = StateA;
+			break;
+		case StateA:
+			printf("Inside StateA here, count = %d\n", count);
+			if(count > 4){
+				state = StateB;
+			}
+			break;
+		case StateB:
+			printf("Inside StateB here, count = %d\n", count);
+			if(count > 7){
+				state = StateC;
+			}
+			break;
+		case StateC:
+			printf("Inside StateC here, count = %d\n", count);
+			if(count > 9){
+				state = END;
+			}
+			break;
+		case END:
+			printf("Exiting the state machine\n");
+			break;
+		}
+		if(state == END){
+			break;
+		}
+		count++;
+		Sleep(1000);
+	}
+
+}

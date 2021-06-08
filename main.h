@@ -125,4 +125,6 @@ node* InsertEnd(node *head, int value);
 node* DeleteEnd(node *head);
 void printList(node *head);
 
+void vLearnStateMachine(void);
+
 #endif

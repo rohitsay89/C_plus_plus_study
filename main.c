@@ -26,8 +26,9 @@ int main(){
     //printf("%X", vFibonacciSequence(100));
     // polynomial using array:
     //vpolynomialUsingArray();
-    vLearnRecursion();
+    //vLearnRecursion();
     //vListFilesInDir();
+    vLearnStateMachine();
 
     printf("Program execution has ended\n");
     return 0;
