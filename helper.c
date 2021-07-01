@@ -3,11 +3,14 @@
 #include <string.h>
 #include <dirent.h>
 
+#if 0
 #ifdef __WIN32
 #include "Windows.h"
 #endif
+#endif
 
 #include "main.h"
+#include "logging/log.h"
 
 int arr1[20]; // global array declare
 int arr2[20]; // global array declare
@@ -106,7 +109,7 @@ void array_address_calculation()
 		//printf("\n");
 	}
 	uint32_t addr = 0;
-	uint32_t base = &a[0];
+	uint32_t base = (uint32_t)&a[0];
 
 	// address of r = 2, c = 3
 	r = 0;
@@ -1418,7 +1421,7 @@ void vLearnStateMachine(void)
 			break;
 		}
 		count++;
-		Sleep(1000);
+		//Sleep(1000);
 	}
 
 }

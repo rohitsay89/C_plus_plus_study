@@ -8,6 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include logging/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -28,7 +29,7 @@ all: C_practice.exe
 C_practice.exe: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MinGW C Linker'
-	gcc -pg -o "C_practice.exe" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "C_practice.exe" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

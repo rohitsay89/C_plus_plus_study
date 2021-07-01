@@ -6,10 +6,17 @@
 #include <inttypes.h>
 
 #include "main.h"
+#include "logging/log.h"
 
 int main(){
-    printf("C program to learn some C basics \n");
-    printf("Build date = %s, Time = %s\n\n", __DATE__, __TIME__);
+	log_trace("C program to learn some C basics");
+	log_debug("Build date = %s, Time = %s", __DATE__, __TIME__);
+	log_info("This is test information log");
+	log_warn("This is test warning log");
+	log_error("This is test error log");
+	log_fatal("This is test fatal log");
+    //printf("C program to learn some C basics \n");
+    //printf("Build date = %s, Time = %s\n\n", __DATE__, __TIME__);
 
     //array_address_calculation();
     //array_sum();
@@ -30,7 +37,7 @@ int main(){
     //vListFilesInDir();
     vLearnStateMachine();
 
-    printf("Program execution has ended\n");
+	log_trace("Program execution has ended\n");
     return 0;
 }
 
