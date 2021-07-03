@@ -3,6 +3,7 @@
 
 /* Includes */
 #include <stdint.h>
+#include <stddef.h>
 
 /* MACROS */
 #define cmp(h)	~h
@@ -42,17 +43,20 @@ typedef struct node
 /* Function Prototypes */
 void array_address_calculation();
 
-int array_sum();
+void array_sum_wrapper(void);
+int array_sum(void);
 float array_avg();
 void array_even_odd_sum();
 void array_reverse();
 void array_prime();
 
+void inverse_num_wrapper(uint32_t num);
 uint32_t inverse_num();
 
 void sum_of_prime(int n);
 void find_prime(int num);
 
+void reverse_bits_wrapper(uint8_t n);
 uint8_t reverse_bits(uint8_t n);
 
 void vSelectionSort();

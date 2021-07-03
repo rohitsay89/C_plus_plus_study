@@ -135,7 +135,11 @@ void array_address_calculation()
 
 }
 
-int array_sum(){
+void array_sum_wrapper(void){
+	array_sum();
+}
+
+int array_sum(void){
     printf("This is function for adding contents of an array\n");
     int n = 0;
     int sum = 0;
@@ -231,6 +235,9 @@ void array_prime(){
 /* OPERATIONS ON NUMBERS */
 
 /* Complement of a number */
+void inverse_num_wrapper(uint32_t num){
+	inverse_num(num);
+}
 uint32_t inverse_num(uint32_t num){
 	printf("The original number is: %d, in hex: 0x%X", num, num);
 	printf("The complement is: %d in hex: 0x%X", cmp(num), cmp(num));
@@ -306,6 +313,11 @@ void find_prime(int num){
    Written by: ROHIT
    date: 10/18/2015
 */
+
+void reverse_bits_wrapper(uint8_t n){
+	reverse_bits(n);
+}
+
 uint8_t reverse_bits(uint8_t n)
 {
 	printf("Input number = 0x%X\n", n);
