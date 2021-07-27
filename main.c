@@ -22,6 +22,7 @@ int main(void){
 	while(1)
 	{
 		run_command_handler();
+
 	}
 
     return 0;
